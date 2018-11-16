@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.mtx.hziee.mapper.MoviejuchangtingMapper">
+  <resultMap id="BaseResultMap" type="cn.mtx.hziee.model.Moviejuchangting">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="movie_id" jdbcType="INTEGER" property="movieId" />
+    <result column="juchang" jdbcType="VARCHAR" property="juchang" />
+    <result column="showtime" jdbcType="VARCHAR" property="showtime" />
+    <result column="price" jdbcType="INTEGER" property="price" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="tingmu" jdbcType="VARCHAR" property="tingmu" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, movie_id, juchang, showtime, price, type, tingmu
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from movie_juchang_ting
+    where movie_id = #{movieId,jdbcType=INTEGER}
+  </select>
+  <select id="selectById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from movie_juchang_ting
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from movie_juchang_ting
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.mtx.hziee.model.Moviejuchangting">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into movie_juchang_ting (movie_id, juchang, showtime, 
+      price, type, tingmu
+      )
+    values (#{movieId,jdbcType=INTEGER}, #{juchang,jdbcType=VARCHAR}, #{showtime,jdbcType=VARCHAR}, 
+      #{price,jdbcType=INTEGER}, #{type,jdbcType=VARCHAR}, #{tingmu,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.mtx.hziee.model.Moviejuchangting">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into movie_juchang_ting
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="movieId != null">
+        movie_id,
+      </if>
+      <if test="juchang != null">
+        juchang,
+      </if>
+      <if test="showtime != null">
+        showtime,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="tingmu != null">
+        tingmu,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="movieId != null">
+        #{movieId,jdbcType=INTEGER},
+      </if>
+      <if test="juchang != null">
+        #{juchang,jdbcType=VARCHAR},
+      </if>
+      <if test="showtime != null">
+        #{showtime,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="tingmu != null">
+        #{tingmu,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.mtx.hziee.model.Moviejuchangting">
+    update movie_juchang_ting
+    <set>
+      <if test="movieId != null">
+        movie_id = #{movieId,jdbcType=INTEGER},
+      </if>
+      <if test="juchang != null">
+        juchang = #{juchang,jdbcType=VARCHAR},
+      </if>
+      <if test="showtime != null">
+        showtime = #{showtime,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="tingmu != null">
+        tingmu = #{tingmu,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.mtx.hziee.model.Moviejuchangting">
+    update movie_juchang_ting
+    set movie_id = #{movieId,jdbcType=INTEGER},
+      juchang = #{juchang,jdbcType=VARCHAR},
+      showtime = #{showtime,jdbcType=VARCHAR},
+      price = #{price,jdbcType=INTEGER},
+      type = #{type,jdbcType=VARCHAR},
+      tingmu = #{tingmu,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<mappers>
+		<mapper resource="cn/mtx/hziee/mapper/MovieMapper.xml" />
+		<mapper resource="cn/mtx/hziee/mapper/MoviescoreMapper.xml" />
+		<mapper resource="cn/mtx/hziee/mapper/ContextMapper.xml" />
+		<mapper resource="cn/mtx/hziee/mapper/UserMapper.xml" />
+		<mapper resource="cn/mtx/hziee/mapper/MoviejuchangtingMapper.xml" />
+		<mapper resource="cn/mtx/hziee/mapper/SeatMapper.xml" />
+		<mapper resource="cn/mtx/hziee/mapper/GouwucheMapper.xml" />
+		<mapper resource="cn/mtx/hziee/mapper/MovietypeMapper.xml" />
+	</mappers>
+</configuration>

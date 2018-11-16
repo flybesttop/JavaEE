@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.mtx.hziee.mapper.MovieMapper">
+  <resultMap id="BaseResultMap" type="cn.mtx.hziee.model.Movie">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="movie_name" jdbcType="VARCHAR" property="movieName" />
+    <result column="movie_english_name" jdbcType="VARCHAR" property="movieEnglishName" />
+    <result column="movie_type" jdbcType="VARCHAR" property="movieType" />
+    <result column="movie_country" jdbcType="VARCHAR" property="movieCountry" />
+    <result column="movie_howlong" jdbcType="VARCHAR" property="movieHowlong" />
+    <result column="movie_context" jdbcType="VARCHAR" property="movieContext" />
+    <result column="movie_haibao" jdbcType="VARCHAR" property="movieHaibao" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, movie_name, movie_english_name, movie_type, movie_country, movie_howlong, movie_context, 
+    movie_haibao
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from movie
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from movie
+  </select>
+  <select id="selectShowingMovie" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    a.id, a.movie_name, a.movie_english_name, a.movie_type, a.movie_country, a.movie_howlong, a.movie_context,
+    a.movie_haibao
+    from movie a,movie_type b
+    WHERE a.id=b.movie_id and b.type_id=1
+    ORDER BY a.id limit 0,#{num,jdbcType=INTEGER}
+  </select>
+  <select id="selectnicemovie" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    a.id, a.movie_name, a.movie_english_name, a.movie_type, a.movie_country, a.movie_howlong, a.movie_context,
+    a.movie_haibao
+    from movie a,movie_type b
+    WHERE a.id=b.movie_id and b.type_id=13
+    ORDER BY a.id limit 0,#{num,jdbcType=INTEGER}
+  </select>
+  <select id="selectBylikelyname" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from movie
+    where movie_name like #{moviename,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAllmovie" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from movie ORDER BY id limit ${page},${rows}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from movie
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.mtx.hziee.model.Movie">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into movie (movie_name, movie_english_name, movie_type, 
+      movie_country, movie_howlong, movie_context, 
+      movie_haibao)
+    values (#{movieName,jdbcType=VARCHAR}, #{movieEnglishName,jdbcType=VARCHAR}, #{movieType,jdbcType=VARCHAR}, 
+      #{movieCountry,jdbcType=VARCHAR}, #{movieHowlong,jdbcType=VARCHAR}, #{movieContext,jdbcType=VARCHAR}, 
+      #{movieHaibao,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.mtx.hziee.model.Movie">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into movie
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="movieName != null">
+        movie_name,
+      </if>
+      <if test="movieEnglishName != null">
+        movie_english_name,
+      </if>
+      <if test="movieType != null">
+        movie_type,
+      </if>
+      <if test="movieCountry != null">
+        movie_country,
+      </if>
+      <if test="movieHowlong != null">
+        movie_howlong,
+      </if>
+      <if test="movieContext != null">
+        movie_context,
+      </if>
+      <if test="movieHaibao != null">
+        movie_haibao,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="movieName != null">
+        #{movieName,jdbcType=VARCHAR},
+      </if>
+      <if test="movieEnglishName != null">
+        #{movieEnglishName,jdbcType=VARCHAR},
+      </if>
+      <if test="movieType != null">
+        #{movieType,jdbcType=VARCHAR},
+      </if>
+      <if test="movieCountry != null">
+        #{movieCountry,jdbcType=VARCHAR},
+      </if>
+      <if test="movieHowlong != null">
+        #{movieHowlong,jdbcType=VARCHAR},
+      </if>
+      <if test="movieContext != null">
+        #{movieContext,jdbcType=VARCHAR},
+      </if>
+      <if test="movieHaibao != null">
+        #{movieHaibao,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.mtx.hziee.model.Movie">
+    update movie
+    <set>
+      <if test="movieName != null">
+        movie_name = #{movieName,jdbcType=VARCHAR},
+      </if>
+      <if test="movieEnglishName != null">
+        movie_english_name = #{movieEnglishName,jdbcType=VARCHAR},
+      </if>
+      <if test="movieType != null">
+        movie_type = #{movieType,jdbcType=VARCHAR},
+      </if>
+      <if test="movieCountry != null">
+        movie_country = #{movieCountry,jdbcType=VARCHAR},
+      </if>
+      <if test="movieHowlong != null">
+        movie_howlong = #{movieHowlong,jdbcType=VARCHAR},
+      </if>
+      <if test="movieContext != null">
+        movie_context = #{movieContext,jdbcType=VARCHAR},
+      </if>
+      <if test="movieHaibao != null">
+        movie_haibao = #{movieHaibao,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.mtx.hziee.model.Movie">
+    update movie
+    set movie_name = #{movieName,jdbcType=VARCHAR},
+      movie_english_name = #{movieEnglishName,jdbcType=VARCHAR},
+      movie_type = #{movieType,jdbcType=VARCHAR},
+      movie_country = #{movieCountry,jdbcType=VARCHAR},
+      movie_howlong = #{movieHowlong,jdbcType=VARCHAR},
+      movie_context = #{movieContext,jdbcType=VARCHAR},
+      movie_haibao = #{movieHaibao,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

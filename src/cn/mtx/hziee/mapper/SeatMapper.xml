@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.mtx.hziee.mapper.SeatMapper">
+  <resultMap id="BaseResultMap" type="cn.mtx.hziee.model.Seat">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="seat_id" jdbcType="INTEGER" property="seatId" />
+    <result column="row_num" jdbcType="INTEGER" property="rowNum" />
+    <result column="column_num" jdbcType="INTEGER" property="columnNum" />
+    <result column="movie_juchang_ting" jdbcType="INTEGER" property="movieJuchangTing" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="add_time" jdbcType="VARCHAR" property="addTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, seat_id, row_num, column_num, movie_juchang_ting, username, add_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from seat
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectByMovieTingmuId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from seat
+    where movie_juchang_ting = #{movieTingmuId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from seat
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByUsername" parameterType="java.lang.String">
+    delete from seat
+    where username = #{username,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteBySeatId" parameterType="java.lang.Integer">
+    delete from seat
+    where seat_id = ${seatid} and movie_juchang_ting=${juchang}
+  </delete>
+  <insert id="insert" parameterType="cn.mtx.hziee.model.Seat">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into seat (seat_id, row_num, column_num, 
+      movie_juchang_ting, username, add_time
+      )
+    values (#{seatId,jdbcType=INTEGER}, #{rowNum,jdbcType=INTEGER}, #{columnNum,jdbcType=INTEGER}, 
+      #{movieJuchangTing,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{addTime,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.mtx.hziee.model.Seat">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into seat
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="seatId != null">
+        seat_id,
+      </if>
+      <if test="rowNum != null">
+        row_num,
+      </if>
+      <if test="columnNum != null">
+        column_num,
+      </if>
+      <if test="movieJuchangTing != null">
+        movie_juchang_ting,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="addTime != null">
+        add_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="seatId != null">
+        #{seatId,jdbcType=INTEGER},
+      </if>
+      <if test="rowNum != null">
+        #{rowNum,jdbcType=INTEGER},
+      </if>
+      <if test="columnNum != null">
+        #{columnNum,jdbcType=INTEGER},
+      </if>
+      <if test="movieJuchangTing != null">
+        #{movieJuchangTing,jdbcType=INTEGER},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null">
+        #{addTime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.mtx.hziee.model.Seat">
+    update seat
+    <set>
+      <if test="seatId != null">
+        seat_id = #{seatId,jdbcType=INTEGER},
+      </if>
+      <if test="rowNum != null">
+        row_num = #{rowNum,jdbcType=INTEGER},
+      </if>
+      <if test="columnNum != null">
+        column_num = #{columnNum,jdbcType=INTEGER},
+      </if>
+      <if test="movieJuchangTing != null">
+        movie_juchang_ting = #{movieJuchangTing,jdbcType=INTEGER},
+      </if>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null">
+        add_time = #{addTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.mtx.hziee.model.Seat">
+    update seat
+    set seat_id = #{seatId,jdbcType=INTEGER},
+      row_num = #{rowNum,jdbcType=INTEGER},
+      column_num = #{columnNum,jdbcType=INTEGER},
+      movie_juchang_ting = #{movieJuchangTing,jdbcType=INTEGER},
+      username = #{username,jdbcType=VARCHAR},
+      add_time = #{addTime,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
