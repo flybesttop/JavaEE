@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.mtx.hziee.mapper.ContextMapper">
+    <resultMap id="BaseResultMap" type="cn.mtx.hziee.model.Context">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="movie_id" jdbcType="INTEGER" property="movieId"/>
+        <result column="username" jdbcType="VARCHAR" property="username"/>
+        <result column="context" jdbcType="VARCHAR" property="context"/>
+        <result column="publish_time" jdbcType="VARCHAR" property="publishTime"/>
+        <result column="user_touxiang" jdbcType="VARCHAR" property="userTouxiang"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, movie_id, username, context, publish_time,user_touxiang
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from context
+        where movie_id = #{movieId,jdbcType=INTEGER}
+    </select>
+    <select id="selectByPrimaryKeyMAP" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from context
+        where movie_id = ${movieId} ORDER BY id DESC limit ${pageNum},${rows}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from context
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="cn.mtx.hziee.model.Context">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into context (movie_id, username, context,
+        publish_time,user_touxiang)
+        values (#{movieId,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{context,jdbcType=VARCHAR},
+        #{publishTime,jdbcType=VARCHAR},#{userTouxiang,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="cn.mtx.hziee.model.Context">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into context
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="movieId != null">
+                movie_id,
+            </if>
+            <if test="username != null">
+                username,
+            </if>
+            <if test="context != null">
+                context,
+            </if>
+            <if test="publishTime != null">
+                publish_time,
+            </if>
+            <if test="userTouxiang != null">
+                user_touxiang,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="movieId != null">
+                #{movieId,jdbcType=INTEGER},
+            </if>
+            <if test="username != null">
+                #{username,jdbcType=VARCHAR},
+            </if>
+            <if test="context != null">
+                #{context,jdbcType=VARCHAR},
+            </if>
+            <if test="publishTime != null">
+                #{publishTime,jdbcType=VARCHAR},
+            </if>
+            <if test="userTouxiang != null">
+                #{userTouxiang,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="cn.mtx.hziee.model.Context">
+        update context
+        <set>
+            <if test="movieId != null">
+                movie_id = #{movieId,jdbcType=INTEGER},
+            </if>
+            <if test="username != null">
+                username = #{username,jdbcType=VARCHAR},
+            </if>
+            <if test="context != null">
+                context = #{context,jdbcType=VARCHAR},
+            </if>
+            <if test="publishTime != null">
+                publish_time = #{publishTime,jdbcType=VARCHAR},
+            </if>
+            <if test="userTouxiang != null">
+                userTouxiang=#{userTouxiang,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="cn.mtx.hziee.model.Context">
+    update context
+    set movie_id = #{movieId,jdbcType=INTEGER},
+      username = #{username,jdbcType=VARCHAR},
+      context = #{context,jdbcType=VARCHAR},
+      publish_time = #{publishTime,jdbcType=VARCHAR},
+      userTouxiang=#{userTouxiang,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

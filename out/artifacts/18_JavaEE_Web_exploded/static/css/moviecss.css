@@ -1,0 +1,146 @@
+body{
+    /*background: url(../img/other/timg.jpg)no-repeat;*/
+    /*background-size: 100% 100%;*/
+    background-color: #ECECEC;
+}
+
+
+ul, li {
+	list-style: none;
+}
+
+a {
+	text-decoration: none;
+	outline: none;
+	cursor: pointer;
+	user-select: none;
+}
+
+a:hover{
+	text-decoration: none;
+	cursor: pointer;
+	user-select: none;
+}
+
+.leixingdaohangxuanxiang{
+	width: 50px;
+	height: 30px;
+	line-height: 30px;
+	background-color: white;
+	text-align: center;
+	border-radius: 15px;
+	margin:auto 5px auto 5px;
+	float: left;
+	color: black;
+}
+
+/*.leixingdaohangxuanxiang:hover{
+	width: 50px;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	border-radius: 15px;
+	margin:auto 5px auto 5px;
+	float: left;
+	color: red;
+}*/
+
+.leixingdaohangnei{
+	width: 93%;
+	height: 100%;
+	float: left;
+}
+
+.shouye-xia{
+    margin-top: 60px;
+    width: 100%;
+    padding-top: 1px;
+    padding-bottom: 21px;
+    background-color:rgba(0,0,0,0);
+}
+
+.shouye-xiadaohang{
+    padding: 5px;
+    float: left;
+    width: 20%;
+    height: 325px;
+}
+
+.shouye-xiadaohang-1{
+    height: 100%;
+    width: 100%;
+    padding-left: 5%;
+    padding-right: 5%;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.3);
+}
+
+.shouye-xiadaohang-2{
+    height: 50px;
+    width: 100%;
+    text-align: center;
+    background-color: white;
+    line-height: 50px;
+    font-size: 1.2em;
+    color: red;
+}
+
+.shouye-xiadaohang-2:hover{
+    height: 50px;
+    width: 100%;
+    text-align: center;
+    background-color: orange;
+    line-height: 50px;
+    font-size: 1.2em;
+    color: white;
+}
+
+#login_form {
+    display: block;
+}
+
+#register_form {
+    display: none;
+}
+
+.form-inline {
+  margin: 10px auto 40px auto;
+  max-width: 330px;
+  padding-top: 50px;
+  background: rgba(255,255,255,0.6);
+  border-radius: 20px;
+  position: relative;
+  height: auto;
+  padding: 10px;
+  font-size: 16px;
+  width: 300px;
+}
+
+.form-inline input {
+    margin-bottom: 10px;
+    outline: none;
+    padding: 10px;
+    font-size: 13px;
+    border-top: 1px solid #312E3D;
+    border-left: 1px solid #312E3D;
+    border-right: 1px solid #312E3D;
+    border-bottom: 1px solid #56536A;
+    border-radius: 4px;
+}
+
+.form-control{
+    margin-left: 15px;
+    width: 260px;
+}
+
+.btn1 {
+    width: 70px;
+    min-height: 30px;
+    background-color: #4a77d4;
+    border: 1px solid #3762bc;
+    color: #fff;
+    padding: 5px 8px;
+    font-size: 14px;
+    border-radius: 3px;
+    text-decoration: none;
+    text-align: center;
+}

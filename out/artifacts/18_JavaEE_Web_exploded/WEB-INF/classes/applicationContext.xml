@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Spring配置文件的根元素，使用spring-beans-4.0.xsd语义约束 -->
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+	http://www.springframework.org/schema/tx
+	http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-4.3.xsd
+	http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
+	<context:property-placeholder location="classpath:db.properties" />
+	<!-- 获取mysql的配置文件，数据源 -->
+	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
+		<property name="driverClassName" value="${jdbc.driver}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<property name="maxTotal" value="${jdbc.maxTotal}" />
+		<property name="maxIdle" value="${jdbc.maxIdle}" />
+		<property name="initialSize" value="${jdbc.initialSize}" />
+	</bean>
+	<!-- 配置mybatis的sqlsessionfactory -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:mybatis-config.xml" />
+	</bean>
+	<!-- 用mapper代理mybatis开发 -->
+	<bean id="userMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="cn.mtx.hziee.mapper.UserMapper" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+	<bean id="contextMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="cn.mtx.hziee.mapper.ContextMapper" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+	<bean id="movieMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="cn.mtx.hziee.mapper.MovieMapper" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+	<bean id="moviescoreMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="cn.mtx.hziee.mapper.MoviescoreMapper" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+	<bean id="seatMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="cn.mtx.hziee.mapper.SeatMapper" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+	<bean id="moviejuchangtingMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="cn.mtx.hziee.mapper.MoviejuchangtingMapper" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+	<bean id="gouwucheMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="cn.mtx.hziee.mapper.GouwucheMapper" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+	<bean id="movietypeMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="cn.mtx.hziee.mapper.MovietypeMapper" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+	<bean id="myAspect" class="com.itheima.aspect.MyAspectj"/>
+	<aop:config>
+		<aop:aspect ref="myAspect">
+			<aop:pointcut expression="execution(* cn.mtx.hziee.mapper.*.*(..))" id="myPointCut"/>
+			<aop:before method="myBefore" pointcut-ref="myPointCut"/>
+			<aop:after-returning method="myAfterReturning"
+								 pointcut-ref="myPointCut" returning="returnVal"/>
+			<aop:around method="myAround" pointcut-ref="myPointCut"/>
+			<aop:after-throwing method="myAfterThrowing" pointcut-ref="myPointCut" throwing="e"/>
+			<aop:after method="myAfter" pointcut-ref="myPointCut"/>
+		</aop:aspect>
+	</aop:config>
+
+</beans>
