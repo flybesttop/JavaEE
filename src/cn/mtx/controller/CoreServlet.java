@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller         //controller控制层
 public class CoreServlet {
-
+    //这里做了一些改动，用于测试git
     ToolBeans dob=new ToolBeans();
 
     @RequestMapping("/login")
